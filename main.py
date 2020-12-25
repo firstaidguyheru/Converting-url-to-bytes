@@ -1,4 +1,3 @@
-from PIL import Image
 import os
 from dotenv import load_dotenv
 import discord
