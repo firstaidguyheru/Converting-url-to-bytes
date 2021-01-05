@@ -19,7 +19,7 @@ async def on_ready():
 async def p(ctx):
     url = ctx.guild.icon_url
     response = requests.get(url)
-    img = Image.open(BytesIO(response.content))
+    img = Image.open(BytesIO(response.content), mode='r')
     b = BytesIO()
     img.save(b, format='JPEG')
     byte_im = b.getvalue()
