@@ -1,6 +1,5 @@
 from io import BytesIO
-import requests
-import aiohttp
+import requests, aiohttp
 
 ## Synchronously
 
