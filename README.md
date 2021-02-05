@@ -1,2 +1,2 @@
-# Converting-url-object-to-bytes
-Converting an object from the Discord API into Bytes using the discord.py wrapper.
+## Converting-url-object-to-bytes
+Converting any url or endpoint that returns an image into bytes.
