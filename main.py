@@ -1,28 +1,30 @@
-import os
-from dotenv import load_dotenv
-import discord
-from discord.ext import commands
-from PIL import Image
 from io import BytesIO
 import requests
+import aiohttp
 
-load_dotenv()
+## Synchronously
 
-client = commands.Bot(command_prefix='-', help_command=None)
+def sync():
+    url = 'URL_HERE'
+    r = requests.get(url)
+    if r.status_code in range(200, 299):
+        img = BytesIO(r.content)
+        b = img.getvalue()
+        print(b)
+    else:
+        print(f'Something went wrong. Response: {r.status_code}')
+    return b
 
-@client.event
-async def on_ready():
-    print(f'{client.user} has Awoken!')
+## Asynchronously
 
-
-@client.command()
-async def p(ctx):
-    url = ctx.guild.icon_url
-    response = requests.get(url)
-    img = Image.open(BytesIO(response.content), mode='r')
-    b = BytesIO()
-    img.save(b, format='JPEG')
-    byte_im = b.getvalue()
-    print(byte_im)
-
-client.run(os.getenv('TOKEN'))
+async def a_sync():
+    url = 'URL_HERE'
+    async with aiohttp.ClientSession() as ses:
+        async with ses.get(url) as r:
+            if r.status in range(200, 299):
+                img = BytesIO(await r.read())
+                b = img.getvalue()
+                print(b)
+            else:
+                print(f'Something went wrong. Response: {r.status}')
+            return b
